@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu1"
+        android:icon="@drawable/ic_kitchen_black_24dp"
+        android:title="Recetas" />
+    <item
+        android:id="@+id/menu2"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="About Us." />
+</menu>
