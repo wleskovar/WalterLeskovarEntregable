@@ -1,8 +1,10 @@
 package com.example.walterleskovarentregable.view;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,9 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapter.InformarSeleccion{
+
+    private ItemReceta itemReceta;
+    private NotificadorActividades notificador;
 
 
     public RecetasFragment() {
@@ -48,8 +53,25 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
 
     @Override
     public void informarSeleccion(ItemReceta itemReceta) {
-        Toast.makeText(getContext(), "Hicieron click en "+"receta", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Hicieron click en "+itemReceta.getTituloReceta(), Toast.LENGTH_SHORT).show();
+        this.itemReceta = itemReceta;
+        notificador.recibirMensaje(this.itemReceta);
 
 
+    }
+
+    /*
+     * La receta seleccionada debe ser mostrada en un detalle.
+     * Para esto pasamos la informacion a la actividad y esta se la pasa al fragment detalle
+     * para lograr esto creamos una interface
+     * */
+    public interface NotificadorActividades {
+        public void recibirMensaje(ItemReceta itemReceta);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.notificador = (NotificadorActividades) context;
     }
 }

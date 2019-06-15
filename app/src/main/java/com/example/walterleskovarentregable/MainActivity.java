@@ -11,12 +11,18 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.walterleskovarentregable.model.ItemReceta;
 import com.example.walterleskovarentregable.view.AboutUsFragment;
+import com.example.walterleskovarentregable.view.DetalleRecetaFragment;
 import com.example.walterleskovarentregable.view.FragmentMain;
 import com.example.walterleskovarentregable.view.RecetasFragment;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+import java.io.Serializable;
+
+import static com.example.walterleskovarentregable.view.DetalleRecetaFragment.RECETA;
+
+public class MainActivity extends AppCompatActivity implements RecetasFragment.NotificadorActividades{
 
     private DrawerLayout drawerLayout;
 
@@ -60,11 +66,9 @@ public class MainActivity extends AppCompatActivity {
         switch (itemId){
             case R.id.menu1:
                 fragmentReceta();
-                Toast.makeText(MainActivity.this, "Menu 1", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu2:
                 fragmentAboutUs();
-                Toast.makeText(MainActivity.this, "Menu 2", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 Toast.makeText(MainActivity.this, "NADA", Toast.LENGTH_SHORT).show();
@@ -73,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.closeDrawers();
     }
 
-    public void fragmentReceta(){
+    private void fragmentReceta(){
         // parte para incluir el fragment_receta
         RecetasFragment recetasFragment = new RecetasFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -82,12 +86,34 @@ public class MainActivity extends AppCompatActivity {
         unfragmentTransaction.commit();
     }
 
-    public void fragmentAboutUs(){
-        // parte para incluir el fragment_receta
+    private void fragmentAboutUs(){
+        // parte para incluir el fragment_about_us
         AboutUsFragment aboutUsFragment = new AboutUsFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction unfragmentTransaction = fragmentManager.beginTransaction();
         unfragmentTransaction.replace(R.id.contenedorFragment, aboutUsFragment);
+        unfragmentTransaction.commit();
+    }
+
+    @Override
+    public void recibirMensaje(ItemReceta itemReceta) {
+        fragmentDetalleReceta(itemReceta);
+
+    }
+
+    private void fragmentDetalleReceta(ItemReceta itemReceta){
+        // parte para incluir el fragment_detalle_receta
+
+        Bundle unBundle = new Bundle();
+        // cargo en el bundle el objeto itemReceta por eso uso Serializable
+        unBundle.putSerializable(RECETA, (Serializable) itemReceta);
+
+        DetalleRecetaFragment detalleRecetaFragment = new DetalleRecetaFragment();
+
+        detalleRecetaFragment.setArguments(unBundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction unfragmentTransaction = fragmentManager.beginTransaction();
+        unfragmentTransaction.replace(R.id.contenedorFragment, detalleRecetaFragment);
         unfragmentTransaction.commit();
     }
 }

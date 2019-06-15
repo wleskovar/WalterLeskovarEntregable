@@ -1,6 +1,8 @@
 package com.example.walterleskovarentregable.model;
 
-public class ItemReceta {
+import java.io.Serializable;
+
+public class ItemReceta implements Serializable {
     private String tituloReceta;
     private String tipoDeReceta;
     private Integer fotoReceta;

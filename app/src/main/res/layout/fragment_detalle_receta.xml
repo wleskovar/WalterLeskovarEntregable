@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.DetalleRecetaFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/detallCardView"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imagenDetalleImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bizcocho_caliente"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|bottom"
+                    android:background="#ffffff"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="Bizcocho de leche evaporada caliente"
+                        android:textSize="20dp"
+                        android:textColor="#021370"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:id="@+id/tituloDetalleTextView"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="Postre"
+                        android:textSize="20dp"
+                        android:textColor="#021370"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:id="@+id/tipoDetalleTextView"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="Ingredientes:"
+                        android:textSize="20dp"
+                        android:textColor="#021370"
+                        android:textStyle="bold"
+                        android:id="@+id/tituloIngredientesDetalleTextView"/>
+                    <TextView
+                        android:id="@+id/ingredienteDetalleTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:text="5 huevos\n200 g de azúcar.\n120 g de aceite de oliva virgen extra.\n200 g de leche evaporada.\nLa ralladura de una piel de mandarina o limón\n250 g de harina normal.\n12 g de levadura de repostería o polvos de hornear\nUna pizca de sal."
+                        android:textColor="#021370"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:text="Preparación:"
+                        android:textSize="20dp"
+                        android:textColor="#021370"
+                        android:textStyle="bold"
+                        android:id="@+id/tituloPreparacionDetalleTextView"/>
+                    <TextView
+                        android:id="@+id/preparacionDetalleTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="15dp"
+                        android:text="1. Precalienta el horno a 180ºC, calor arriba y abajo.\n2. Engrasa tu molde y espolvorea una pizca de harina con la ayuda de un colador bien repartida por todo el molde.\n3. Bate los huevos, la sal y el azúcar durante 5 minutos con unas varillas o ayudándote con una máquina de varillas, y reserva.\n4. Pon la leche evaporada en un cazo junto con el aceite. Justo antes de que comience a hervir retira del fuego y remueve con unas varillas. Añade esta mezcla a los huevos y el azúcar sin dejar de batir, poco a poco.\n5. Tamiza la harina y añádela a la masa junto con la levadura, no de una vez, sino de tres o cuatro veces, incorpora la ralladura de limón y de naranja y remueve lo justo para que se integre toda la masa.\n6. Vierte la masa en el molde. Levanta el molde un par de centímetros y golpea suavemente contra la encimera. Repite de nuevo este proceso que te ayudará a eliminar las burbujas de aire."
+                        android:textColor="#021370"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</FrameLayout>
