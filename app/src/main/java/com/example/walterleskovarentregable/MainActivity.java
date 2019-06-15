@@ -8,11 +8,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.walterleskovarentregable.R;
 import com.example.walterleskovarentregable.view.AboutUsFragment;
 import com.example.walterleskovarentregable.view.FragmentMain;
 import com.example.walterleskovarentregable.view.RecetasFragment;

@@ -48,7 +48,7 @@
                 android:textSize="20dp"
                 android:textColor="#021370"
                 android:textStyle="bold"
-                android:id="@+id/descripcionItemTextView"/>
+                android:id="@+id/tipoItemTextView"/>
         </LinearLayout>
 
     </LinearLayout>

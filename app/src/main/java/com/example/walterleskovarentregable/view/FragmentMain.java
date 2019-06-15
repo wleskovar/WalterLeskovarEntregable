@@ -4,6 +4,8 @@ package com.example.walterleskovarentregable.view;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +31,6 @@ public class FragmentMain extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_fragment_main, container, false);
-        imageView = view.findViewById(R.id.imageViewReceta);
-
 
         return view;
 
