@@ -7,20 +7,24 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.walterleskovarentregable.dao.DBRecetas;
 import com.example.walterleskovarentregable.model.ItemReceta;
 import com.example.walterleskovarentregable.view.AboutUsFragment;
 import com.example.walterleskovarentregable.view.DetalleRecetaFragment;
 import com.example.walterleskovarentregable.view.FragmentMain;
 import com.example.walterleskovarentregable.view.RecetasFragment;
+import com.example.walterleskovarentregable.view.SegundaActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.Serializable;
 
 import static com.example.walterleskovarentregable.view.DetalleRecetaFragment.RECETA;
+import static com.example.walterleskovarentregable.view.SegundaActivity.RECETAS_DATOS;
 
 public class MainActivity extends AppCompatActivity implements RecetasFragment.NotificadorActividades{
 
@@ -96,12 +100,20 @@ public class MainActivity extends AppCompatActivity implements RecetasFragment.N
     }
 
     @Override
-    public void recibirMensaje(ItemReceta itemReceta) {
-        fragmentDetalleReceta(itemReceta);
+    public void recibirMensaje(DBRecetas dbRecetas) {
+        // cambiar a la segunda actividad
+        Intent unItent = new Intent(MainActivity.this, SegundaActivity.class);
+        Bundle unBundle = new Bundle();
+        unBundle.putSerializable(RECETAS_DATOS, (Serializable) dbRecetas);
+        unItent.putExtras(unBundle);
+        startActivity(unItent);
+
+
+        //fragmentDetalleReceta(itemReceta);
 
     }
 
-    private void fragmentDetalleReceta(ItemReceta itemReceta){
+    /*private void fragmentDetalleReceta(ItemReceta itemReceta){
         // parte para incluir el fragment_detalle_receta
 
         Bundle unBundle = new Bundle();
@@ -115,5 +127,5 @@ public class MainActivity extends AppCompatActivity implements RecetasFragment.N
         FragmentTransaction unfragmentTransaction = fragmentManager.beginTransaction();
         unfragmentTransaction.replace(R.id.contenedorFragment, detalleRecetaFragment);
         unfragmentTransaction.commit();
-    }
+    }*/
 }

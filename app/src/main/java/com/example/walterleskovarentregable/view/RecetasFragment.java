@@ -30,6 +30,7 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
     private ItemReceta itemReceta;
     private NotificadorActividades notificador;
     private ItemTouchHelper itemTouchHelper;
+    private DBRecetas dbRecetas;
 
 
     public RecetasFragment() {
@@ -46,7 +47,7 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewRecetas);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        DBRecetas dbRecetas = new DBRecetas();
+        dbRecetas = new DBRecetas();
 
         final CeldaRecyclerViewAdapter celdaRecyclerViewAdapter = new CeldaRecyclerViewAdapter(dbRecetas.obtenerListadoDeRecetas(), this, view);
         recyclerView.setAdapter(celdaRecyclerViewAdapter);
@@ -73,8 +74,8 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
     @Override
     public void informarSeleccion(ItemReceta itemReceta) {
         this.itemReceta = itemReceta;
-        notificador.recibirMensaje(this.itemReceta);
-
+        this.itemReceta.setVerDetalleReceta(true);
+        notificador.recibirMensaje(dbRecetas);
 
     }
 
@@ -84,7 +85,7 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
      * para lograr esto creamos una interface
      * */
     public interface NotificadorActividades {
-        public void recibirMensaje(ItemReceta itemReceta);
+        public void recibirMensaje(DBRecetas dbRecetas);
     }
 
     @Override
