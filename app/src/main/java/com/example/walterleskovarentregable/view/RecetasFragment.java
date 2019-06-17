@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,7 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
 
     private ItemReceta itemReceta;
     private NotificadorActividades notificador;
+    private ItemTouchHelper itemTouchHelper;
 
 
     public RecetasFragment() {
@@ -45,15 +47,31 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         DBRecetas dbRecetas = new DBRecetas();
-        CeldaRecyclerViewAdapter celdaRecyclerViewAdapter = new CeldaRecyclerViewAdapter(dbRecetas.obtenerListadoDeRecetas(), this);
+
+        final CeldaRecyclerViewAdapter celdaRecyclerViewAdapter = new CeldaRecyclerViewAdapter(dbRecetas.obtenerListadoDeRecetas(), this, view);
         recyclerView.setAdapter(celdaRecyclerViewAdapter);
+
+        PantallaAccion.EventosCallback callback = new PantallaAccion.EventosCallback() {
+            @Override
+            public void onItemMove(int initialPosition, int finalPosition) {
+                celdaRecyclerViewAdapter.onItemMove(initialPosition, finalPosition);
+
+            }
+
+            @Override
+            public void removeItem(int position) {
+                celdaRecyclerViewAdapter.removeItem(position);
+
+            }
+        };
+        ItemTouchHelper androdItemTouchHelper = new ItemTouchHelper(new PantallaAccion(callback));
+        androdItemTouchHelper.attachToRecyclerView(recyclerView);
         return view;
 
     }
 
     @Override
     public void informarSeleccion(ItemReceta itemReceta) {
-        Toast.makeText(getContext(), "Hicieron click en "+itemReceta.getTituloReceta(), Toast.LENGTH_SHORT).show();
         this.itemReceta = itemReceta;
         notificador.recibirMensaje(this.itemReceta);
 
