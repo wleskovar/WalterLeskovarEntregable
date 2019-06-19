@@ -9,7 +9,15 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/contenedorSegundaFragment">
+        android:id="@+id/contenedorFragment">
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/contenedor_viewPager">
+
+        </androidx.viewpager.widget.ViewPager>
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

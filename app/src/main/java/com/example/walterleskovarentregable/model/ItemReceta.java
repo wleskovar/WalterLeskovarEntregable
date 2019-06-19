@@ -18,14 +18,6 @@ public class ItemReceta implements Serializable {
 
     // constructor donde se pasan como parametros los atributos de la clase ItemLista
 
-    public void setVerDetalleReceta(boolean verDetalleReceta) {
-        this.verDetalleReceta = verDetalleReceta;
-    }
-
-    public boolean isVerDetalleReceta() {
-        return verDetalleReceta;
-    }
-
     public ItemReceta(String tituloReceta, String tipoDeReceta, Integer fotoReceta, String ingredientesrecta, String preparacionReceta) {
         this.tituloReceta = tituloReceta;
         this.tipoDeReceta = tipoDeReceta;
@@ -53,5 +45,13 @@ public class ItemReceta implements Serializable {
 
     public String getPreparacionReceta() {
         return preparacionReceta;
+    }
+
+    public void setVerDetalleReceta(boolean verDetalleReceta) {
+        this.verDetalleReceta = verDetalleReceta;
+    }
+
+    public boolean isVerDetalleReceta() {
+        return verDetalleReceta;
     }
 }

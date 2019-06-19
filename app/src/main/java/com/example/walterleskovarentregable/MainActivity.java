@@ -24,11 +24,16 @@ import com.google.android.material.navigation.NavigationView;
 import java.io.Serializable;
 
 import static com.example.walterleskovarentregable.view.DetalleRecetaFragment.RECETA;
+import static com.example.walterleskovarentregable.view.RecetasFragment.DB_RECETAS;
+import static com.example.walterleskovarentregable.view.SegundaActivity.BASEDATOS;
 import static com.example.walterleskovarentregable.view.SegundaActivity.RECETAS_DATOS;
 
 public class MainActivity extends AppCompatActivity implements RecetasFragment.NotificadorActividades{
 
     private DrawerLayout drawerLayout;
+    private DBRecetas dbRecetas = new DBRecetas();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +87,16 @@ public class MainActivity extends AppCompatActivity implements RecetasFragment.N
     }
 
     private void fragmentReceta(){
-        // parte para incluir el fragment_receta
+
+        // genero el contenido de la lista de recetas
+        dbRecetas.obtenerListadoDeRecetas();
+
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(DB_RECETAS, dbRecetas);
+
         RecetasFragment recetasFragment = new RecetasFragment();
+        recetasFragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction unfragmentTransaction = fragmentManager.beginTransaction();
         unfragmentTransaction.replace(R.id.contenedorFragment, recetasFragment);
@@ -100,32 +113,20 @@ public class MainActivity extends AppCompatActivity implements RecetasFragment.N
     }
 
     @Override
-    public void recibirMensaje(DBRecetas dbRecetas) {
+    public void recibirMensaje(ItemReceta itemReceta) {
+        // recibo el itemReceta seleccionado y pongo en verdadero el atributo verDetalleReceta
+        itemReceta.setVerDetalleReceta(true);
+
         // cambiar a la segunda actividad
         Intent unItent = new Intent(MainActivity.this, SegundaActivity.class);
         Bundle unBundle = new Bundle();
-        unBundle.putSerializable(RECETAS_DATOS, (Serializable) dbRecetas);
+
+        // cargo al Bunble el objeto con el listado de recetas y el itemReceta seleccionado
+        unBundle.putSerializable(BASEDATOS, dbRecetas);
+        //unBundle.putSerializable(RECETAS_DATOS, (Serializable) itemReceta);
         unItent.putExtras(unBundle);
         startActivity(unItent);
-
-
-        //fragmentDetalleReceta(itemReceta);
-
     }
 
-    /*private void fragmentDetalleReceta(ItemReceta itemReceta){
-        // parte para incluir el fragment_detalle_receta
 
-        Bundle unBundle = new Bundle();
-        // cargo en el bundle el objeto itemReceta por eso uso Serializable
-        unBundle.putSerializable(RECETA, (Serializable) itemReceta);
-
-        DetalleRecetaFragment detalleRecetaFragment = new DetalleRecetaFragment();
-
-        detalleRecetaFragment.setArguments(unBundle);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction unfragmentTransaction = fragmentManager.beginTransaction();
-        unfragmentTransaction.replace(R.id.contenedorFragment, detalleRecetaFragment);
-        unfragmentTransaction.commit();
-    }*/
 }

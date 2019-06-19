@@ -36,4 +36,19 @@ public class DBRecetas implements Serializable {
 
         return unaListaDeRecetas;
     }
+
+    public List<ItemReceta> getUnaListaDeRecetas() {
+        return unaListaDeRecetas;
+    }
+
+    public Integer PosicionEnLaListaDeRecetasDetalle(){
+        Integer posicion = 0;
+        for (int i = 0; i < unaListaDeRecetas.size(); i++) {
+            if (unaListaDeRecetas.get(i).isVerDetalleReceta() == true){
+                posicion = i;
+                break;
+            }
+        }
+        return posicion;
+    }
 }

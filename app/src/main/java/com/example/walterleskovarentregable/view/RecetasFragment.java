@@ -27,6 +27,8 @@ import java.util.List;
  */
 public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapter.InformarSeleccion{
 
+    public static final String DB_RECETAS = "db_recetas";
+
     private ItemReceta itemReceta;
     private NotificadorActividades notificador;
     private ItemTouchHelper itemTouchHelper;
@@ -38,6 +40,7 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,11 +50,15 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewRecetas);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        dbRecetas = new DBRecetas();
+        Bundle bundleRecibido = getArguments();
+        dbRecetas = (DBRecetas) bundleRecibido.getSerializable(DB_RECETAS);
 
-        final CeldaRecyclerViewAdapter celdaRecyclerViewAdapter = new CeldaRecyclerViewAdapter(dbRecetas.obtenerListadoDeRecetas(), this, view);
+        // instancio el Adapter del RecyclerView y paso como artumento la lista de Items a cargar.
+        final CeldaRecyclerViewAdapter celdaRecyclerViewAdapter = new CeldaRecyclerViewAdapter(dbRecetas.getUnaListaDeRecetas(), this, view);
         recyclerView.setAdapter(celdaRecyclerViewAdapter);
 
+
+        // instancio el Callback que sera encargado de ejecutar las acciones cuando el escuchador de movimientos avise
         PantallaAccion.EventosCallback callback = new PantallaAccion.EventosCallback() {
             @Override
             public void onItemMove(int initialPosition, int finalPosition) {
@@ -65,17 +72,18 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
 
             }
         };
-        ItemTouchHelper androdItemTouchHelper = new ItemTouchHelper(new PantallaAccion(callback));
-        androdItemTouchHelper.attachToRecyclerView(recyclerView);
+        // instanciamos el escuchador de movimientos
+        ItemTouchHelper androdiItemTouchHelper = new ItemTouchHelper(new PantallaAccion(callback));
+        // ligamos el escuchador al recyclerView
+        androdiItemTouchHelper.attachToRecyclerView(recyclerView);
         return view;
 
     }
 
     @Override
     public void informarSeleccion(ItemReceta itemReceta) {
-        this.itemReceta = itemReceta;
-        this.itemReceta.setVerDetalleReceta(true);
-        notificador.recibirMensaje(dbRecetas);
+        // paso a la Actividad (en este caso MainActivity) el itemReceta seleccionado en el RecyclerView
+        notificador.recibirMensaje(itemReceta);
 
     }
 
@@ -85,7 +93,7 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
      * para lograr esto creamos una interface
      * */
     public interface NotificadorActividades {
-        public void recibirMensaje(DBRecetas dbRecetas);
+        public void recibirMensaje(ItemReceta itemReceta);
     }
 
     @Override

@@ -21,6 +21,13 @@ public class DetalleRecetaFragment extends Fragment {
 
     public static final String RECETA = "receta";
 
+    public final static String TITULO = "titulo";
+    public final static String TIPO = "tipo";
+    public final static String FOTO = "foto";
+    public final static String INGREDIENTE = "ingrediente";
+    public final static String PREPARACION = "preparacion";
+
+
     private TextView tituloReceta;
     private TextView tipoReceta;
     private ImageView fotoReceta;
@@ -30,6 +37,19 @@ public class DetalleRecetaFragment extends Fragment {
 
     public DetalleRecetaFragment() {
         // Required empty public constructor
+    }
+
+    public static DetalleRecetaFragment newInstance(ItemReceta itemReceta) {
+        DetalleRecetaFragment detalleRecetaFragment = new DetalleRecetaFragment();
+        Bundle unBundle = new Bundle();
+        unBundle.putString(detalleRecetaFragment.TITULO, itemReceta.getTituloReceta());
+        unBundle.putString(detalleRecetaFragment.TIPO, itemReceta.getTipoDeReceta());
+        unBundle.putInt(detalleRecetaFragment.FOTO, itemReceta.getFotoReceta());
+        unBundle.putString(detalleRecetaFragment.INGREDIENTE, itemReceta.getIngredientesrecta());
+        unBundle.putString(detalleRecetaFragment.PREPARACION, itemReceta.getPreparacionReceta());
+        detalleRecetaFragment.setArguments(unBundle);
+
+        return detalleRecetaFragment;
     }
 
 
@@ -47,13 +67,12 @@ public class DetalleRecetaFragment extends Fragment {
 
         // obtego el objeto itemReceta que viene en el Bundle
         Bundle unBundleRecibido = getArguments();
-        ItemReceta itemReceta = (ItemReceta) unBundleRecibido.get(RECETA);
 
-        tituloReceta.setText(itemReceta.getTituloReceta());
-        tipoReceta.setText(itemReceta.getTipoDeReceta());
-        fotoReceta.setImageResource(itemReceta.getFotoReceta());
-        ingredienteReceta.setText(itemReceta.getIngredientesrecta());
-        preparacionReceeta.setText(itemReceta.getPreparacionReceta());
+        tituloReceta.setText(unBundleRecibido.getString(TITULO));
+        tipoReceta.setText(unBundleRecibido.getString(TIPO));
+        fotoReceta.setImageResource(unBundleRecibido.getInt(FOTO));
+        ingredienteReceta.setText(unBundleRecibido.getString(INGREDIENTE));
+        preparacionReceeta.setText(unBundleRecibido.getString(PREPARACION));
 
         return view;
     }
