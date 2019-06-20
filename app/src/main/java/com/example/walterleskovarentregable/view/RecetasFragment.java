@@ -57,6 +57,7 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
         final CeldaRecyclerViewAdapter celdaRecyclerViewAdapter = new CeldaRecyclerViewAdapter(dbRecetas.getUnaListaDeRecetas(), this, view);
         recyclerView.setAdapter(celdaRecyclerViewAdapter);
 
+        // el ItemTouchHelper y el PantallaAccion.EventosCallback callback responden al patron de diseño OBSERVER
 
         // instancio el Callback que sera encargado de ejecutar las acciones cuando el escuchador de movimientos avise
         PantallaAccion.EventosCallback callback = new PantallaAccion.EventosCallback() {
@@ -72,6 +73,8 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
 
             }
         };
+
+
         // instanciamos el escuchador de movimientos
         ItemTouchHelper androdiItemTouchHelper = new ItemTouchHelper(new PantallaAccion(callback));
         // ligamos el escuchador al recyclerView
@@ -81,19 +84,22 @@ public class RecetasFragment extends Fragment implements CeldaRecyclerViewAdapte
     }
 
     @Override
-    public void informarSeleccion(ItemReceta itemReceta) {
-        // paso a la Actividad (en este caso MainActivity) el itemReceta seleccionado en el RecyclerView
-        notificador.recibirMensaje(itemReceta);
+    public void informarSeleccion(int posicionEnLista) {
+        // paso a la Actividad (en este caso MainActivity) la posicion de la lista de la receta que se selecciono
+        // en el RecyclerView
+        notificador.recibirMensaje(posicionEnLista);
 
     }
 
     /*
-     * La receta seleccionada debe ser mostrada en un detalle.
-     * Para esto pasamos la informacion a la actividad y esta se la pasa al fragment detalle
-     * para lograr esto creamos una interface
+     * La receta seleccionada debe ser mostrada primera en el ViewPager implementado en la Segunda Actividad (SegundaActivity)
+     * Para esto pasamos la informacion a la actividad, para lograr esto creamos una interface
+     *
      * */
     public interface NotificadorActividades {
-        public void recibirMensaje(ItemReceta itemReceta);
+
+        // pasamos como argumento la posicion de la lista de la receta que se selecciono
+        public void recibirMensaje(int posicionEnLista);
     }
 
     @Override

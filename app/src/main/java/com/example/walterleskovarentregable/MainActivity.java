@@ -26,12 +26,12 @@ import java.io.Serializable;
 import static com.example.walterleskovarentregable.view.DetalleRecetaFragment.RECETA;
 import static com.example.walterleskovarentregable.view.RecetasFragment.DB_RECETAS;
 import static com.example.walterleskovarentregable.view.SegundaActivity.BASEDATOS;
-import static com.example.walterleskovarentregable.view.SegundaActivity.RECETAS_DATOS;
+import static com.example.walterleskovarentregable.view.SegundaActivity.INDICE;
 
 public class MainActivity extends AppCompatActivity implements RecetasFragment.NotificadorActividades{
 
     private DrawerLayout drawerLayout;
-    private DBRecetas dbRecetas = new DBRecetas();
+    private DBRecetas dbRecetas;
 
 
 
@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements RecetasFragment.N
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // generamos la lista de peliculas como si tuvieramos una Base de Datos
+        dbRecetas = new DBRecetas();
 
         // parte para incluir el fragment_main
         FragmentMain fragmentMain = new FragmentMain();
@@ -88,10 +91,6 @@ public class MainActivity extends AppCompatActivity implements RecetasFragment.N
 
     private void fragmentReceta(){
 
-        // genero el contenido de la lista de recetas
-        dbRecetas.obtenerListadoDeRecetas();
-
-
         Bundle bundle = new Bundle();
         bundle.putSerializable(DB_RECETAS, dbRecetas);
 
@@ -113,17 +112,17 @@ public class MainActivity extends AppCompatActivity implements RecetasFragment.N
     }
 
     @Override
-    public void recibirMensaje(ItemReceta itemReceta) {
-        // recibo el itemReceta seleccionado y pongo en verdadero el atributo verDetalleReceta
-        itemReceta.setVerDetalleReceta(true);
+    public void recibirMensaje(int posicionEnListaa) {
+
+        // recibo la posicion de la receta seleccionada
 
         // cambiar a la segunda actividad
         Intent unItent = new Intent(MainActivity.this, SegundaActivity.class);
         Bundle unBundle = new Bundle();
 
-        // cargo al Bunble el objeto con el listado de recetas y el itemReceta seleccionado
+        // cargo al Bunble el objeto con el listado de recetas y la posicion en la lista de la receta seleccionada
         unBundle.putSerializable(BASEDATOS, dbRecetas);
-        //unBundle.putSerializable(RECETAS_DATOS, (Serializable) itemReceta);
+        unBundle.putInt(INDICE, posicionEnListaa);
         unItent.putExtras(unBundle);
         startActivity(unItent);
     }

@@ -37,6 +37,10 @@ public class DetalleRecetaFragment extends Fragment {
 
     public DetalleRecetaFragment() {
         // Required empty public constructor
+
+
+        // se implementa el patron de diseño FACTORY para poder generar los FRAGMENT en forma dinamica
+        // de pasa a travez del BUNDLE la información para que cuando se genera el FRAGMENT reciba la información
     }
 
     public static DetalleRecetaFragment newInstance(ItemReceta itemReceta) {
@@ -47,6 +51,7 @@ public class DetalleRecetaFragment extends Fragment {
         unBundle.putInt(detalleRecetaFragment.FOTO, itemReceta.getFotoReceta());
         unBundle.putString(detalleRecetaFragment.INGREDIENTE, itemReceta.getIngredientesrecta());
         unBundle.putString(detalleRecetaFragment.PREPARACION, itemReceta.getPreparacionReceta());
+
         detalleRecetaFragment.setArguments(unBundle);
 
         return detalleRecetaFragment;

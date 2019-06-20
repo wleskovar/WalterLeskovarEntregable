@@ -18,12 +18,10 @@ import java.util.List;
 
 public class SegundaActivity extends AppCompatActivity {
 
-    public static final String RECETAS_DATOS = "receta_datos";
+    public static final String INDICE = "indice";
     public static final String BASEDATOS = "base_datos";
     private DBRecetas dbRecetas;
-    public static DBRecetas DB;
-    private List<ItemReceta> unaListaDeRecetas;
-    private ItemReceta itemReceta;
+    private int posicionDeLaReceta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +31,7 @@ public class SegundaActivity extends AppCompatActivity {
         Intent unIntentRecibido = getIntent();
         Bundle unBundleRecibido = unIntentRecibido.getExtras();
         dbRecetas = (DBRecetas) unBundleRecibido.get(BASEDATOS);
-
-        //------------------------------------------------------------------------------------------
-        // obtengo la lista de recetas
-        unaListaDeRecetas = dbRecetas.getUnaListaDeRecetas();
-
-        //------------------------------------------------------------------------------------------
-
-        // hago global el acceso a la base de datos
-        DB = dbRecetas;
+        posicionDeLaReceta = (int) unBundleRecibido.get(INDICE);
 
         // Implementacion del ViewPager
 
@@ -49,9 +39,10 @@ public class SegundaActivity extends AppCompatActivity {
         viewPager.setClipToPadding(false);
         viewPager.setPageMargin(50);
         viewPager.setOffscreenPageLimit(2);
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), dbRecetas );
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(dbRecetas.PosicionEnLaListaDeRecetasDetalle());
+
+        viewPager.setCurrentItem(posicionDeLaReceta); // debe llegar la posicion desde el MainActivity
     }
 
 }

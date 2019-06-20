@@ -70,7 +70,7 @@ public class CeldaRecyclerViewAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    objetoInformarSeleccion.informarSeleccion(unaListaItemReceta.get(getAdapterPosition()));
+                    objetoInformarSeleccion.informarSeleccion(getAdapterPosition());
                 }
             });
         }
@@ -85,7 +85,7 @@ public class CeldaRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     public interface InformarSeleccion {
-        public void informarSeleccion(ItemReceta itemReceta);
+        public void informarSeleccion(int posicionDeLaReceta);
     }
 
     public void onItemMove(int initialPosition, int finalPosition) {

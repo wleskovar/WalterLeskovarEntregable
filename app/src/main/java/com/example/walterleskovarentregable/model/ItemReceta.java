@@ -24,7 +24,6 @@ public class ItemReceta implements Serializable {
         this.fotoReceta = fotoReceta;
         this.ingredientesrecta = ingredientesrecta;
         this.preparacionReceta = preparacionReceta;
-        this.verDetalleReceta = false;
     }
 
     public String getTituloReceta() {
@@ -47,11 +46,4 @@ public class ItemReceta implements Serializable {
         return preparacionReceta;
     }
 
-    public void setVerDetalleReceta(boolean verDetalleReceta) {
-        this.verDetalleReceta = verDetalleReceta;
-    }
-
-    public boolean isVerDetalleReceta() {
-        return verDetalleReceta;
-    }
 }
